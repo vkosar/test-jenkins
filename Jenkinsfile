@@ -32,7 +32,7 @@ node('node') {
         stage('Test') {
             env.NODE_ENV = "test"
             env.PORT = 5001
-            print 'Environment will be : ${env.NODE_ENV}'
+            print "Environment will be : ${env.NODE_ENV}"
             print "Node version:"
             sh 'node -v'
             sh 'npm ci'
