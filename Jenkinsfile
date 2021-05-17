@@ -44,7 +44,6 @@ node('node') {
 
             if (!hudson.model.Result.SUCCESS.equals(currentBuild.rawBuild.getPreviousBuild()?.getResult())) {
                 if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == "production") {
-                    //slackSend channel: 'github-urgent', color: '#00aa00', message: "The ${env.BRANCH_NAME} branch recovered: ${env.BUILD_URL}"
                     echo "The ${env.BRANCH_NAME} branch recovered: ${env.BUILD_URL}"
                 }
             }
