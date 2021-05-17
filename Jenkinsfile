@@ -49,7 +49,7 @@ node('node') {
             if (isDeploy) {
                 sh 'npm ci'
                 sshagent (credentials: ['deploy-dev']) {
-                    sh 'ssh -o StrictHostKeyChecking=no user@localhost uname -a'
+                    sh 'ssh -o StrictHostKeyChecking=no user@localhost ls -al'
                 }
                 echo "Finished deploying"
             }
