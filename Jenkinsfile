@@ -48,7 +48,9 @@ node('node') {
             boolean isDeploy = JOB_NAME.endsWith('deploy')
             if (isDeploy) {
                 sh 'npm ci'
-
+                sshagent (credentials: ['deploy-dev']) {
+                    sh 'ssh -o StrictHostKeyChecking=no user@localhost uname -a'
+                }
                 echo "Finished deploying"
             }
         }
