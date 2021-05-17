@@ -63,6 +63,7 @@ node('node') {
         boolean isDeploy = JOB_NAME.endsWith('deploy')
         if (isDeploy) {
             echo "Error during deployment ${err}"
+            echo "${env}"
         }
         throw err
     }
