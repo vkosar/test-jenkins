@@ -42,12 +42,6 @@ node('node') {
         stage('Cleanup') {
             echo 'prune and cleanup'
             sh 'rm node_modules/ -rf'
-
-            if (!hudson.model.Result.SUCCESS.equals(currentBuild.rawBuild.getPreviousBuild()?.getResult())) {
-                if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == "production") {
-                    echo "The ${env.BRANCH_NAME} branch recovered: ${env.BUILD_URL}"
-                }
-            }
         }
 
         stage('Deploy') {
