@@ -62,7 +62,9 @@ node('node') {
         currentBuild.result = "FAILURE"
         boolean isDeploy = JOB_NAME.endsWith('deploy')
         if (isDeploy) {
-            echo "Error during deployment ${err.getMessage()}"
+            echo "Error during deployment: ${err.getMessage()}"
+            log = sh(script: "wget ${BUILD_URL}/consoleText", returnStdout: true)
+            echo "Log: ${log}"
         }
         throw err
     }
