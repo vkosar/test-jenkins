@@ -51,7 +51,7 @@ node('node') {
                 sshagent (credentials: ['deploy-dev']) {
                     sh 'ssh -o StrictHostKeyChecking=no user@localhost rm /home/user/test-jenkins/ -rf || true'
                     sh 'ssh -o StrictHostKeyChecking=no user@localhost mkdir /home/user/test-jenkins'
-                    sh 'scp -o StrictHostKeyChecking=no -r . user@localhost:/home/user/test-jenkins'
+                    sh 'scp -o StrictHostKeyChecking=no -r $CD user@localhost:/home/user/test-jenkins'
                 }
                 echo "Finished deploying"
             }
