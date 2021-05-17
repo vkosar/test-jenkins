@@ -32,7 +32,7 @@ node('node') {
         stage('Test') {
             env.NODE_ENV = "test"
             env.PORT = 5001
-            print "Environment will be : ${env.NODE_ENV}"
+            print 'Environment will be : ${env.NODE_ENV}'
             print "Node version:"
             sh 'node -v'
             sh 'npm ci'
@@ -49,7 +49,7 @@ node('node') {
             if (isDeploy) {
                 sh 'npm ci'
                 sshagent (credentials: ['deploy-dev']) {
-                    sh 'ssh -o StrictHostKeyChecking=no user@localhost ls -al'
+                    sh 'ssh -o StrictHostKeyChecking=no user@localhost rm test-jenkins/ -rf || true'
                 }
                 echo "Finished deploying"
             }
