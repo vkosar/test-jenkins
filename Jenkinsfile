@@ -49,9 +49,9 @@ node('node') {
             if (isDeploy) {
                 sh 'npm ci'
                 sshagent (credentials: ['deploy-dev']) {
-                    sh 'ssh -o StrictHostKeyChecking=no user@localhost rm ~/test-jenkins/ -rf || true'
-                    sh 'ssh -o StrictHostKeyChecking=no user@localhost mkdir ~/test-jenkins'
-                    sh 'scp -o StrictHostKeyChecking=no -r ./* user@localhost:~/test-jenkins'
+                    sh 'ssh -o StrictHostKeyChecking=no user@localhost rm test-jenkins/ -rf || true'
+                    sh 'ssh -o StrictHostKeyChecking=no user@localhost mkdir test-jenkins'
+                    sh 'scp -o StrictHostKeyChecking=no -r ./* user@localhost:test-jenkins'
                 }
                 echo "Finished deploying"
             }
