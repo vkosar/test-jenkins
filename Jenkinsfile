@@ -63,7 +63,7 @@ node('node') {
         boolean isDeploy = JOB_NAME.endsWith('deploy')
         if (isDeploy) {
             echo "Error during deployment: ${err.getMessage()}"
-            log = sh(script: "curl --user admin:11ec3d4a7a5510f8bc8486668d6ed79eb1 ${BUILD_URL}/consoleText", returnStdout: true)
+            log = sh(script: "curl -s -S --stderr - --user admin:11ec3d4a7a5510f8bc8486668d6ed79eb1 ${BUILD_URL}consoleText", returnStdout: true)
             echo "Log: ${log}"
         }
         throw err
