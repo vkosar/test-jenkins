@@ -62,8 +62,7 @@ node('node') {
         currentBuild.result = "FAILURE"
         boolean isDeploy = JOB_NAME.endsWith('deploy')
         if (isDeploy) {
-            echo "Error during deployment ${err}"
-            echo sh(script: 'env|sort', returnStdout: true)
+            echo "Error during deployment ${err.getMessage()}"
         }
         throw err
     }
