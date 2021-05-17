@@ -53,8 +53,8 @@ node('node') {
                     sh 'ssh -o StrictHostKeyChecking=no user@localhost mkdir test-jenkins'
                     sh 'scp -o StrictHostKeyChecking=no -r ./* user@localhost:test-jenkins'
                     sh 'ssh -o StrictHostKeyChecking=no user@localhost whoami'
-                    sh 'ssh -o StrictHostKeyChecking=no user@localhost env | sort'
-                    sh 'ssh -o StrictHostKeyChecking=no user@localhost forever restart --workingDir test-jenkins test-jenkins/app.js'
+                    sh 'ssh -o StrictHostKeyChecking=no user@localhost bash -i -c env'
+                    sh 'ssh -o StrictHostKeyChecking=no user@localhost bash -i -c "forever restart --workingDir test-jenkins test-jenkins/app.js"'
                 }
                 echo "Finished deploying"
             }
