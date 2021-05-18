@@ -64,8 +64,9 @@ node('node') {
         if (isDeploy) {
             echo "Error during deployment: ${err.getMessage()}"
             // 'set +x' and 'set -x' hides curl command line with credentials in jenkins logs!
-            //log = sh(script: "set +x; curl -s -S --stderr - --user readonly:11308a5f07f044c8795b953ad2d2f5f9a0 ${BUILD_URL}consoleText; set -x", returnStdout: true)
-            log = currentBuild.rawBuild.getLog(1000).join('\n')
+            //log = sh(script: "set +x; curl -s -S --stderr - --user ${API_USER}:${API_PASSWORD} ${BUILD_URL}consoleText; set -x", returnStdout: true)
+            log = sh(script: "curl -s -S --stderr - --user ${API_USER}:${API_PASSWORD} ${BUILD_URL}consoleText", returnStdout: true)
+            //log = currentBuild.rawBuild.getLog(1000).join('\n')
             echo "Log: ${log}"
         }
         throw err
