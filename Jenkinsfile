@@ -83,7 +83,7 @@ node('node') {
                 logLenSum += lenAdd
                 logAddLineIdx -= 1
             }
-            def logText = logLines[logAddLineIdx..logLines.size()].join('\n')
+            def logText = logLines[logAddLineIdx..(logLines.size() - 1)].join('\n')
             if (logAddLineIdx > 0) {
                 logText = '...\n' + logText
             }
