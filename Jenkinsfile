@@ -90,7 +90,7 @@ node('node') {
                 ]
             ]
             slackSend channel: '#testing-jenkins-integration', color: '#ff0000',
-                    message: "${env.JOB_NAME}/${env.BUILD_DISPLAY_NAME}: Last log lines for the '${env.BRANCH_NAME}' branch:",
+                    message: "Job ${env.JOB_NAME} build ${env.BUILD_DISPLAY_NAME}: Last log lines for the '${env.BRANCH_NAME}' branch:",
                     attachments: attachments
         }
         throw err
