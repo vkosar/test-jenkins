@@ -82,6 +82,7 @@ node('node') {
             if (logAddLineIdx > 0) {
                 logText = "[...truncated ${logAddLineIdx} lines...]\n${logText}"
             }
+
             def attachments = [
                 [
                     text: "```${logText}```",
