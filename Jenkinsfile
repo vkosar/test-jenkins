@@ -83,7 +83,6 @@ node('node') {
                 logText = "[...truncated ${logAddLineIdx} lines...]\n${logText}"
             }
 
-
             def attachments = [
                 [
                     text: "```${logText}```",
