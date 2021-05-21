@@ -73,7 +73,7 @@ node('node') {
             log = currentBuild.rawBuild.getLog(log_limit).join('\n')
             slackSend channel: 'testing-jenkins-integration', color: '#00aa00',
                     message: "cushion_rest: Last ${log_limit} log lines for the '${env.BRANCH_NAME}' branch:\n${log}"
-            sh "echo ${log} > jenkins_build_log.txt"
+            writeFile(file: "jenkins_build_log.txt", text: log)
             slackUploadFile channel: 'testing-jenkins-integration',
                     filePath: "jenkins_build_log.txt",
                     initialComment:  "cushion_rest: Last ${log_limit} log lines for the '${env.BRANCH_NAME}' branch"
