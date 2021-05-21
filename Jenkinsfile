@@ -73,22 +73,20 @@ node('node') {
             def logText = currentBuild.rawBuild.getLog(logLimit).join('\n')
             def attachments = [
                 [
-                    text: logText,
-                    fallback: 'Hey, Vader seems to be mad at you.',
+                    text: "```${logText}```",
+                    fallback: 'Log content',
                     color: '#ff0000'
                 ]
             ]
             slackSend channel: '#testing-jenkins-integration', color: '#ff0000',
-                    credentialId: 'Slack-vad-test',
-                    message: "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch:\n${logText}",
+                    message: "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch:",
                     attachments: attachments
-            def logFile = "jenkins_build_log.txt"
-            writeFile(file: logFile, text: logText)
-            slackUploadFile credentialId: 'Slack-vad-test',
-                    filePath: logFile,
-                    initialComment:  "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch"
-
-                    //channel: 'testing-jenkins-integration',
+            //def logFile = "jenkins_build_log.txt"
+            //writeFile(file: logFile, text: logText)
+            //slackUploadFile credentialId: 'Slack-vad-test',
+            //        filePath: logFile,
+            //        initialComment:  "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch"
+            //        //channel: 'testing-jenkins-integration',
 
         }
         throw err
