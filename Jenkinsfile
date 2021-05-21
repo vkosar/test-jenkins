@@ -76,6 +76,7 @@ node('node') {
             logFile = "jenkins_build_log.txt"
             writeFile(file: logFile, text: logText)
             slackUploadFile channel: '#testing-jenkins-integration',
+                    credentialId: 'Slack-vad-test',
                     filePath: logFile,
                     initialComment:  "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch"
         }
