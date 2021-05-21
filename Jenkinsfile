@@ -68,9 +68,9 @@ node('node') {
             //log = currentBuild.rawBuild.getLog(1000).join('\n')
             //echo "Log: ${log}"
 
-            //sh "env | sort"
             def logLimit = 200
-            def logText = currentBuild.rawBuild.getLog(logLimit).join('\n')
+            //def logText = currentBuild.rawBuild.getLog(logLimit).join('\n')
+            def logText = readFile file: 'package-lock.json'
             def attachments = [
                 [
                     text: "```${logText}```",
@@ -81,13 +81,6 @@ node('node') {
             slackSend channel: '#testing-jenkins-integration', color: '#ff0000',
                     message: "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch:",
                     attachments: attachments
-            //def logFile = "jenkins_build_log.txt"
-            //writeFile(file: logFile, text: logText)
-            //slackUploadFile credentialId: 'Slack-vad-test',
-            //        filePath: logFile,
-            //        initialComment:  "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch"
-            //        //channel: 'testing-jenkins-integration',
-
         }
         throw err
     }
