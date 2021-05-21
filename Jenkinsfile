@@ -68,7 +68,7 @@ node('node') {
             echo "commitHash ${commitHash}"
             def prId = sh(script: "git ls-remote origin 'pull/*/head' | grep -F ${commitHash} | awk -F'/' '{print \$3}'", returnStdout: true).trim()
             echo "prId ${prId}"
-            echo "PR test2"
+            echo "PR test4"
 
             def logLinesLimit = 200
             def logLengthLimit = 7000 // Limit log length here to prevent truncating it by Slack
