@@ -73,7 +73,7 @@ node('node') {
             def logText = readFile file: 'package-lock.json'
             def attachments = [
                 [
-                    text: "```${logText}```",
+                    text: "```${logText[-7000..]}```",
                     fallback: 'Log content',
                     color: '#ff0000'
                 ]
