@@ -71,9 +71,10 @@ node('node') {
             def logLimit = 200
             //def logText = currentBuild.rawBuild.getLog(logLimit).join('\n')
             def logText = readFile file: 'package-lock.json'
+            logText = logText[-7000..]
             def attachments = [
                 [
-                    text: "```${logText[-7000..]}```",
+                    text: "```${logText}```",
                     fallback: 'Log content',
                     color: '#ff0000'
                 ]
