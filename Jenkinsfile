@@ -71,7 +71,10 @@ node('node') {
             def logLimit = 200
             //def logText = currentBuild.rawBuild.getLog(logLimit).join('\n')
             def logText = readFile file: 'package-lock.json'
-            logText = logText[-7000..]
+            def logTextLen = logText.length()
+            if (logTextLen > 7000) {
+                logText = logText.substring(logTextLen - 7000)
+            }
             def attachments = [
                 [
                     text: "```${logText}```",
