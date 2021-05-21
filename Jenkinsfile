@@ -69,6 +69,7 @@ node('node') {
             def prId = sh(script: "git ls-remote origin 'pull/*/head' | grep -F ${commitHash} | awk -F'/' '{print \$3}'", returnStdout: true).trim()
             echo "prId ${prId}"
 
+
             def logLinesLimit = 200
             def logLengthLimit = 7000 // Limit log length here to prevent truncating it by Slack
             def logLines = currentBuild.rawBuild.getLog(logLinesLimit)
