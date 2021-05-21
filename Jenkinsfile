@@ -70,8 +70,8 @@ node('node') {
 
             //def logText = readFile file: 'package-lock.json'
 
-            def logLinesLimit = 50 // 200
-            def logLengthLimit = 7000
+            def logLinesLimit = 200
+            def logLengthLimit = 200 // 7000
             def logLines = currentBuild.rawBuild.getLog(logLinesLimit)
             def logAddLineIdx = logLines.size()
             def logLenSum = 0
