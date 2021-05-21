@@ -77,7 +77,7 @@ node('node') {
             def logLenSum = 0
             while (logAddLineIdx > 0) {
                 def lenAdd = logLines[logAddLineIdx - 1].length() + 1
-                if ((logLenSum + lenAdd) < logLengthLimit) {
+                if ((logLenSum + lenAdd) > logLengthLimit) {
                     break
                 }
                 logLenSum += lenAdd
