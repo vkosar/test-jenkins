@@ -83,15 +83,11 @@ node('node') {
                 logLenSum += lenAdd
                 logAddLineIdx -= 1
             }
-            echo "logAddLineIdx ${logAddLineIdx}"
             def logEnd = logLines.size() - 1
-            echo "logEnd ${logEnd}"
-            echo "logSize ${logLines.size()}"
             def logText = logLines[logAddLineIdx..logEnd].join('\n')
             if (logAddLineIdx > 0) {
-                logText = '...\n' + logText
+                logText = "[...truncated ${logAddLineIdx} lines(2)...]\n${logText}"
             }
-            echo "logText:\n${logText}"
             def attachments = [
                 [
                     text: "```${logText}```",
