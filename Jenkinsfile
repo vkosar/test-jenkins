@@ -68,15 +68,16 @@ node('node') {
             //log = currentBuild.rawBuild.getLog(1000).join('\n')
             //echo "Log: ${log}"
 
-            sh "env | sort"
-            log_limit = 200
-            log = currentBuild.rawBuild.getLog(log_limit).join('\n')
-            slackSend channel: 'testing-jenkins-integration', color: '#00aa00',
-                    message: "cushion_rest: Last ${log_limit} log lines for the '${env.BRANCH_NAME}' branch:\n${log}"
-            writeFile(file: "jenkins_build_log.txt", text: log)
-            slackUploadFile channel: 'testing-jenkins-integration',
-                    filePath: "jenkins_build_log.txt",
-                    initialComment:  "cushion_rest: Last ${log_limit} log lines for the '${env.BRANCH_NAME}' branch"
+            //sh "env | sort"
+            logLimit = 200
+            logText = currentBuild.rawBuild.getLog(logLimit).join('\n')
+            slackSend channel: '#testing-jenkins-integration', color: '#ff0000',
+                    message: "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch:\n${logText}"
+            logFile = "${WORKSPACE_TMP}/jenkins_build_log.txt"
+            writeFile(file: logFile, text: logText)
+            slackUploadFile channel: '#testing-jenkins-integration', color: '#ff0000',
+                    filePath: logFile,
+                    initialComment:  "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch"
         }
         throw err
     }
