@@ -64,9 +64,9 @@ node('node') {
         if (isDeploy) {
             echo "Error during deployment: ${err.getMessage()}"
 
-            def commitHash = sh "git rev-parse HEAD"
+            def commitHash = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
             echo "commitHash ${commitHash}"
-            def prId = sh "git ls-remote origin 'pull/*/head' | grep -F ${commitHash} | awk -F'/' '{print \$3}'"
+            def prId = sh("git ls-remote origin 'pull/*/head' | grep -F ${commitHash} | awk -F'/' '{print \$3}'", returnStdout: true).trim()
             echo "prId ${prId}"
 
             def logLinesLimit = 200
