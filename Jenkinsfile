@@ -91,6 +91,7 @@ node('node') {
             if (logAddLineIdx > 0) {
                 logText = '...\n' + logText
             }
+            echo "logText:\n${logText}"
             def attachments = [
                 [
                     text: "```${logText}```",
