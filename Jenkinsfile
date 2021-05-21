@@ -73,7 +73,7 @@ node('node') {
             def logLinesLimit = 200
             def logLengthLimit = 7000
             def logLines = currentBuild.rawBuild.getLog(logLinesLimit)
-            def logAddLineIdx = logLines.length()
+            def logAddLineIdx = logLines.size()
             def logLenSum = 0
             while (logAddLineIdx > 0) {
                 def lenAdd = logLines[logAddLineIdx - 1].length() + 1
@@ -83,7 +83,7 @@ node('node') {
                 logLenSum += lenAdd
                 logAddLineIdx -= 1
             }
-            def logText = logLines[logAddLineIdx..logLines.length()].join('\n')
+            def logText = logLines[logAddLineIdx..logLines.size()].join('\n')
             if (logAddLineIdx > 0) {
                 logText = '...\n' + logText
             }
