@@ -65,8 +65,18 @@ node('node') {
             echo "Error during deployment: ${err.getMessage()}"
             // 'set +x' and 'set -x' hides curl command line with credentials in jenkins logs!
             //log = sh(script: "set +x; curl -s -S --stderr - --user ${API_USER}:${API_PASSWORD} ${BUILD_URL}consoleText; set -x", returnStdout: true)
-            log = currentBuild.rawBuild.getLog(1000).join('\n')
-            echo "Log: ${log}"
+            //log = currentBuild.rawBuild.getLog(1000).join('\n')
+            //echo "Log: ${log}"
+
+            sh "env | sort"
+            log_limit = 200
+            log = currentBuild.rawBuild.getLog(log_limit).join('\n')
+            slackSend channel: 'jenkins-logs', color: '#00aa00',
+                    message: "cushion_rest: Last ${log_limit} log lines for the '${env.BRANCH_NAME}' branch:\n${log}"
+            sh "echo ${log} > jenkins_build_log.txt"
+            slackUploadFile channel: 'jenkins-logs',
+                    filePath: "jenkins_build_log.txt",
+                    initialComment:  "cushion_rest: Last ${log_limit} log lines for the '${env.BRANCH_NAME}' branch"
         }
         throw err
     }
