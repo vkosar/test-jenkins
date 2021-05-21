@@ -66,7 +66,7 @@ node('node') {
 
             def commitHash = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
             echo "commitHash ${commitHash}"
-            def prId = sh("git ls-remote origin 'pull/*/head' | grep -F ${commitHash} | awk -F'/' '{print \$3}'", returnStdout: true).trim()
+            def prId = sh(script: "git ls-remote origin 'pull/*/head' | grep -F ${commitHash} | awk -F'/' '{print \$3}'", returnStdout: true).trim()
             echo "prId ${prId}"
 
             def logLinesLimit = 200
