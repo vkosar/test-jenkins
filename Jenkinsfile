@@ -64,6 +64,9 @@ node('node') {
         if (isDeploy) {
             echo "Error during deployment: ${err.getMessage()}"
 
+            def pr_id = sh "git ls-remote origin 'pull/*/head' | grep -F -f <(git rev-parse HEAD) | awk -F'/' '{print \$3}'"
+            echo "pr_id ${pr_id}"
+
             def logLinesLimit = 200
             def logLengthLimit = 7000 // Limit log length here to prevent truncating it by Slack
             def logLines = currentBuild.rawBuild.getLog(logLinesLimit)
