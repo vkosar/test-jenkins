@@ -68,12 +68,24 @@ node('node') {
             //log = currentBuild.rawBuild.getLog(1000).join('\n')
             //echo "Log: ${log}"
 
-            def logLimit = 200
-            //def logText = currentBuild.rawBuild.getLog(logLimit).join('\n')
-            def logText = readFile file: 'package-lock.json'
-            def logTextLen = logText.length()
-            if (logTextLen > 7000) {
-                logText = logText.substring(logTextLen - 7000)
+            //def logText = readFile file: 'package-lock.json'
+
+            def logLinesLimit = 200
+            def logLengthLimit = 7000
+            def logLines = currentBuild.rawBuild.getLog(logLinesLimit)
+            def logAddLineIdx = logLines.length()
+            def logLenSum = 0
+            while (logAddLineIdx > 0) {
+                def lenAdd = logLines[logAddLineIdx - 1].length() + 1
+                if ((logLenSum + lenAdd) < logLengthLimit) {
+                    break
+                }
+                logLenSum += lenAdd
+                logAddLineIdx -= 1
+            }
+            def logText = logLines[logAddLineIdx..logLines.length()].join('\n')
+            if (logAddLineIdx > 0) {
+                logText = '...\n' + logText
             }
             def attachments = [
                 [
@@ -83,7 +95,7 @@ node('node') {
                 ]
             ]
             slackSend channel: '#testing-jenkins-integration', color: '#ff0000',
-                    message: "cushion_rest: Last ${logLimit} log lines for the '${env.BRANCH_NAME}' branch:",
+                    message: "cushion_rest: Last log lines for the '${env.BRANCH_NAME}' branch:",
                     attachments: attachments
         }
         throw err
